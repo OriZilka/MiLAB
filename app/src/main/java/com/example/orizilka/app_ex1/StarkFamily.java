@@ -15,6 +15,6 @@ public class StarkFamily extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.StarkFamilyList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ListAdapter(new String[]{"Ori", "Mor", "Maya"}));
+        recyclerView.setAdapter(new ListAdapter(new String[]{"Eddard \"Ned\" Stark", "Catelyn Stark", "Sansa Stark" , "Arya Stark" , "Robb Stark" , "Bran Stark" , "Rickon Stark"}));
     }
 }

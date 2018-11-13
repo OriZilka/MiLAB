@@ -14,6 +14,6 @@ public class LannisterFamily extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.LannisterFamilyList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ListAdapter(new String[]{"Lidor", "May", "Nadav"}));
+        recyclerView.setAdapter(new ListAdapter(new String[]{"Jaime Lannister", "Cersei Lannister", "Tyrion Lannister", "Tywin Lannister", "Lancel Lannister", "Kevan Lannister"}));
     }
 }
