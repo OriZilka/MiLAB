@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StarkFamily" />
-        <activity android:name=".LannisterFamily"></activity>
+        <activity android:name=".LannisterFamily" />
+        <activity android:name=".NewListAdapter"></activity>
     </application>
 
 </manifest>
