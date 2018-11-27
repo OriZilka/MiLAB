@@ -2,7 +2,6 @@ package com.example.orizilka.ex_03_notifications;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
@@ -76,13 +75,11 @@ public class QuoteService extends IntentService {
 
         String currentQuote = Array[placeInArray];
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(intentNumber + ": " + currentQuote)
-                // .setContentText(id+ ": " + currentQuote)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("sentence number " + intentNumber + ":\n" + currentQuote)
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                ;
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
         notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(intentNumber ++, builder.build());
 
