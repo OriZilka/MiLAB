@@ -1,8 +1,14 @@
 package com.example.orizilka.ex_03_notifications;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
+import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -16,6 +22,14 @@ public class QuoteService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     public static final String ACTION_ONE = "com.example.orizilka.ex_03_notifications.action.ONE";
     public static final String[] Array = {"sentence one", "sentence two", "sentence three"};
+
+    public static AlarmManager myAlarmer;
+    public static NotificationManagerCompat notificationManager;
+    public static int intentNumber = 1;
+    public static final long SEC_BETWEEN_NOTIFICATIONS = 30;
+    public static int placeInArray = 0;
+
+
 
 
     public QuoteService() {
@@ -53,8 +67,27 @@ public class QuoteService extends IntentService {
      * parameters.
      */
     private void handleActionOne() {
-        // TODO: Handle action Foo
-        throw new UnsupportedOperationException("Not yet implemented");
+        // TODO: Handle action one
+        Intent myIntent = new Intent(this, NotificationReceiver.class);
+        myAlarmer = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        myAlarmer.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime(), SEC_BETWEEN_NOTIFICATIONS,
+                PendingIntent.getBroadcast(this, 0, myIntent, 0));
+
+        String currentQuote = Array[placeInArray];
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(intentNumber + ": " + currentQuote)
+                // .setContentText(id+ ": " + currentQuote)
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                ;
+        notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(intentNumber ++, builder.build());
+
+        placeInArray ++ ;
+        placeInArray = (placeInArray % Array.length);
     }
 
 
