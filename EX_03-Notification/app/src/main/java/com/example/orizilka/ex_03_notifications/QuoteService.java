@@ -23,7 +23,7 @@ public class QuoteService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     public static final String ACTION_ONE = "com.example.orizilka.ex_03_notifications.action.ONE";
-    public static final String ACTION_TWO = "com.example.orizilka.ex_03_notifications.action.ONE";
+    public static final String ACTION_TWO = "com.example.orizilka.ex_03_notifications.action.TWO";
     public static final String[] Array = {"sentence one", "sentence two", "sentence three"};
 
     public static AlarmManager myAlarmer;
