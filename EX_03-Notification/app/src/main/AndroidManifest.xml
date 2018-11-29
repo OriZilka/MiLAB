@@ -22,11 +22,18 @@
         <receiver
             android:name=".NotificationReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                 <action android:name= "com.example.orizilka.ex_03_notifications.startActionTwo.ACTION"></action>;
+            </intent-filter>
+        </receiver>
+            />
 
         <service
             android:name=".QuoteService"
             android:exported="false" />
+
+
     </application>
 
 </manifest>
