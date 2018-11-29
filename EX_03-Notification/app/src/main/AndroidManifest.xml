@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.orizilka.ex_03_notifications">
 
-    <!--<user-permission android:name="android.permission.INTERNET" />-->
     <uses-permission android:name="android.permission.SET_ALARM"/>
     <application
         android:allowBackup="true"
