@@ -1,14 +1,16 @@
-package com.example.orizilka.sharecompanyprice;
+package com.example.orizilka.sharevalue;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import io.socket.emitter.Emitter;
-
 import java.net.URISyntaxException;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -23,17 +25,12 @@ public class MainActivity extends AppCompatActivity {
     // declaring the string and button that I'll use after.
     String companyShareName;
     Button submitButton;
-
     EditText shareNameInput;
 
-   // private String mUsername;
-    private Socket mSocket;
-   // private Boolean isConnected = true;
+     private Socket mSocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         /*
          * creating and handling the Socket.io
@@ -41,24 +38,33 @@ public class MainActivity extends AppCompatActivity {
         try {
             mSocket = IO.socket("http://10.0.2.2:3000");
             mSocket.connect();
-//            mSocket.on("userSharedACompany", new Emitter.Listener(){
-//                @Override
-//                public void call(final Object... args) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            String data = (String) args[0];
-//                            Toast.makeText(MainActivity.this,data,Toast.LENGTH_SHORT).show();
-//
-//
-//                        }
-//                    });
-//                }
-//            });
+            mSocket.on("userSharedACompany", new Emitter.Listener(){
+                @Override
+                public void call(final Object... args) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            JSONObject shareData = (JSONObject) args[0];
+
+                            try {
+                                String company = shareData.getString("Company");
+                                String value = shareData.getString("Value");
+                                Toast.makeText(MainActivity.this, company + "s' current share value is "
+                                        + value, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e){
+                                return;
+                            }
+                        }
+                    });
+                }
+            });
 
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            return;
         }
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         /*
          * creating and handling the UI
@@ -73,9 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
                 // changing the text from the text box to a string.
                 companyShareName = shareNameInput.getText().toString();
+
+                if(!companyShareName.isEmpty()){
+                    mSocket.emit("ShareCompany", companyShareName);
+                }
             }
         });
 
     }
 }
-

@@ -1,4 +1,4 @@
-package com.example.orizilka.sharecompanyprice;
+package com.example.orizilka.sharevalue;
 
 import org.junit.Test;
 
